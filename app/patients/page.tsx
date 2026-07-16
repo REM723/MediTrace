@@ -98,6 +98,14 @@ export default async function PatientsPage() {
               <PatientForm />
             </div>
           </div>
+
+          <p className="mt-4 rounded-xl border border-[#E4E4E3] bg-white px-4 py-3 text-xs text-neutral-500">
+            New here? Add a patient, then open their record to log symptoms, prescriptions, and
+            investigations before generating a diagnosis.{" "}
+            <Link href="/patients/guide" className="btn font-medium text-blue-700 hover:text-blue-900">
+              Read the guide
+            </Link>
+          </p>
         </aside>
       </div>
     </main>
