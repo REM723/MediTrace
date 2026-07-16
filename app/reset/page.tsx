@@ -28,7 +28,8 @@ export default function ResetPage() {
       <div className="mb-10 flex flex-col items-center gap-4">
         <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-800 shadow-[0_4px_16px_rgba(0,0,0,0.18)]">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden>
-            <path d="M12 4v16M4 12h16" stroke="white" strokeWidth="2.5" strokeLinecap="round" />
+            <path d="M12 3.5V20.5" stroke="white" strokeWidth="2.4" strokeLinecap="round" />
+            <path d="M3.5 12H8.5L10.5 8.5L13 15.5L15 12H20.5" stroke="white" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </div>
         <div className="text-center">

@@ -1,10 +1,10 @@
 import { cookies } from "next/headers";
 import { createClient } from "@supabase/supabase-js";
-import { adminLogin, adminLogout } from "./actions";
+import { adminLogin, adminLogout, clearAll } from "./actions";
 
 export const dynamic = "force-dynamic";
 
-type SP = Promise<{ error?: string }>;
+type SP = Promise<{ error?: string; cleared?: string }>;
 
 export default async function AdminPage({ searchParams }: { searchParams: SP }) {
   const cookieStore = await cookies();
@@ -61,6 +61,8 @@ export default async function AdminPage({ searchParams }: { searchParams: SP }) 
       </div>
     );
   }
+
+  const { cleared } = await searchParams;
 
   const db = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -161,6 +163,16 @@ export default async function AdminPage({ searchParams }: { searchParams: SP }) 
       </div>
 
       <main className="mx-auto max-w-5xl space-y-8 px-6 py-8">
+        {cleared === "1" && (
+          <div className="rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
+            All patient data and audit logs have been cleared.
+          </div>
+        )}
+        {cleared === "invalid" && (
+          <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-700">
+            Nothing was cleared. Type DELETE exactly to confirm.
+          </div>
+        )}
         {e1 && (
           <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
             Service role key may be invalid. Queries returned errors. Check{" "}
@@ -290,6 +302,34 @@ export default async function AdminPage({ searchParams }: { searchParams: SP }) 
             ) : (
               <p className="px-4 py-6 text-sm text-neutral-400">No audit events yet.</p>
             )}
+          </div>
+        </section>
+
+        {/* Danger zone */}
+        <section>
+          <h2 className="mb-3 text-xs font-semibold uppercase tracking-[0.06em] text-neutral-400">Danger zone</h2>
+          <div className="rounded-xl border border-[#E4E4E3] bg-[#FAFAFA] p-5">
+            <p className="text-sm font-medium text-[#111110]">Clear everything</p>
+            <p className="mt-1 text-xs text-neutral-500">
+              Permanently deletes all patients, encounters, symptoms, prescriptions, investigations,
+              findings, diagnoses, and audit logs. User accounts are kept. This cannot be undone.
+            </p>
+            <form action={clearAll} className="mt-4 flex flex-wrap items-center gap-2">
+              <input
+                type="text"
+                name="confirm"
+                required
+                autoComplete="off"
+                placeholder="Type DELETE to confirm"
+                className="field w-52 rounded-lg border border-[#E4E4E3] bg-white px-3 py-2 text-sm text-[#111110] placeholder:text-neutral-400"
+              />
+              <button
+                type="submit"
+                className="btn rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700"
+              >
+                Clear all data
+              </button>
+            </form>
           </div>
         </section>
       </main>

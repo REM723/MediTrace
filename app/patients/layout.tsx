@@ -13,7 +13,8 @@ export default async function PatientsLayout({ children }: { children: React.Rea
         <Link href="/patients" className="flex items-center gap-2.5">
           <div className="flex h-7 w-7 items-center justify-center rounded-[8px] bg-blue-800">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden>
-              <path d="M12 4v16M4 12h16" stroke="white" strokeWidth="2.5" strokeLinecap="round"/>
+              <path d="M12 3.5V20.5" stroke="white" strokeWidth="2.4" strokeLinecap="round"/>
+              <path d="M3.5 12H8.5L10.5 8.5L13 15.5L15 12H20.5" stroke="white" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </div>
           <span className="text-sm font-semibold tracking-tight text-[#111110]">MediTrace</span>
